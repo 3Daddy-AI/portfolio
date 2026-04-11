@@ -135,9 +135,7 @@
         #f5a623 70%,
         var(--accent) 100%
       );
-      animation: spin 7s linear infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
     .av-inner {
       width: 100%;
       height: 100%;
@@ -149,10 +147,10 @@
       justify-content: center;
     }
     .av-inner img {
-      width: 115%;
-      height: 115%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      object-position: 50% 42%;
+      object-position: center 30%;
       border-radius: 50%;
       display: block;
     }
@@ -346,7 +344,7 @@
     <div class="av-ring">
       <div class="av-inner">
         <img
-          src="assets/Gemini_Generated_Image_l992xjl992xjl992.png"
+          src="assets/avatar.png"
           alt="ビット"
           onerror="this.style.display='none'; document.getElementById('fb').style.display='block';"
         >
