@@ -3,423 +3,451 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ビット - AIエージェント × クリエイター のリンク集">
+  <meta name="description" content="ビット — AIエージェント × クリエイター のリンク集">
   <meta property="og:title" content="ビット / Bit">
   <meta property="og:description" content="AIエージェント × クリエイター">
   <meta property="og:image" content="assets/avatar.png">
   <title>ビット / Bit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    /* ── Design System (Linear-inspired, adapted for ビット) ── */
     :root {
-      --bg:       #08081a;
-      --blue:     #5bc8f5;
-      --gold:     #f5a623;
-      --purple:   #8b5cf6;
-      --purple2:  #a78bfa;
-      --glass:    rgba(255,255,255,0.05);
-      --border:   rgba(255,255,255,0.09);
+      /* Background surfaces — Linear's luminance stacking */
+      --bg-canvas:    #08090a;
+      --bg-panel:     #0f1011;
+      --bg-surface:   #191a1b;
+      --bg-elevated:  #23252a;
+
+      /* Text hierarchy */
+      --text-primary:   #f7f8f8;
+      --text-secondary: #d0d6e0;
+      --text-tertiary:  #8a8f98;
+      --text-muted:     #62666d;
+
+      /* ビット brand accent (light blue) */
+      --accent:       #5bc8f5;
+      --accent-dim:   rgba(91,200,245,0.12);
+      --accent-border:rgba(91,200,245,0.20);
+
+      /* Secondary accent (violet, matching character) */
+      --violet:       #7170ff;
+      --violet-dim:   rgba(113,112,255,0.10);
+
+      /* Borders — always semi-transparent white */
+      --border:       rgba(255,255,255,0.08);
+      --border-subtle:rgba(255,255,255,0.05);
+
+      /* Typography — Inter Variable, Linear's signature settings */
+      --font: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
+      --font-features: "cv01","ss03";
     }
 
     body {
       min-height: 100dvh;
-      background: var(--bg);
-      font-family: 'Hiragino Sans', 'Noto Sans JP', 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-canvas);
+      font-family: var(--font);
+      font-feature-settings: var(--font-features);
+      -webkit-font-smoothing: antialiased;
+      color: var(--text-primary);
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 56px 20px 60px;
+      padding: 64px 20px 72px;
       overflow-x: hidden;
-      color: #fff;
     }
 
-    /* ── background layers ── */
-    .bg {
+    /* ── Background ── */
+    /* Faint violet/blue radial glow — Linear's "glow from darkness" approach */
+    body::before {
+      content: '';
       position: fixed;
       inset: 0;
       z-index: 0;
       background:
-        radial-gradient(ellipse 70% 60% at 15% 40%, rgba(91,60,200,.35) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 50% at 85% 20%, rgba(30,80,160,.30) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 55% at 60% 85%, rgba(139,92,246,.25) 0%, transparent 65%),
-        #08081a;
+        radial-gradient(ellipse 55% 45% at 20% 35%, rgba(91,200,245,.06) 0%, transparent 70%),
+        radial-gradient(ellipse 45% 50% at 80% 70%, rgba(113,112,255,.07) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 30% at 55% 10%, rgba(91,200,245,.04) 0%, transparent 60%);
+      pointer-events: none;
     }
 
-    .grid {
+    /* Ultra-faint grid — technology substrate */
+    body::after {
+      content: '';
       position: fixed;
       inset: 0;
-      z-index: 1;
+      z-index: 0;
       background-image:
-        linear-gradient(rgba(91,200,245,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(91,200,245,.025) 1px, transparent 1px);
-      background-size: 44px 44px;
+        linear-gradient(var(--border-subtle) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
     }
 
-    /* floating squares (matching character art bg) */
-    .squares {
+    /* Floating squares — matches ビット character art background */
+    .particles {
       position: fixed;
       inset: 0;
-      z-index: 1;
+      z-index: 0;
       overflow: hidden;
       pointer-events: none;
     }
-    .sq {
-      position: absolute;
-      border-radius: 4px;
-      animation: sq-float linear infinite;
-      opacity: 0;
-    }
-    @keyframes sq-float {
-      0%   { transform: translateY(110vh) rotate(0deg);   opacity: 0; }
-      8%   { opacity: 1; }
-      90%  { opacity: 1; }
-      100% { transform: translateY(-120px) rotate(540deg); opacity: 0; }
+    .p { position: absolute; animation: rise linear infinite; opacity: 0; }
+    @keyframes rise {
+      0%   { transform: translateY(105vh) rotate(0deg);   opacity: 0; }
+      6%   { opacity: 1; }
+      92%  { opacity: 1; }
+      100% { transform: translateY(-80px) rotate(480deg); opacity: 0; }
     }
 
-    /* ── main card ── */
-    .card {
+    /* ── Layout ── */
+    .wrap {
       position: relative;
-      z-index: 10;
+      z-index: 1;
       width: 100%;
       max-width: 400px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
-    /* ── avatar ── */
-    .avatar-shell {
+    /* ── Avatar ── */
+    .av {
       position: relative;
-      width: 110px;
-      height: 110px;
+      width: 108px;
+      height: 108px;
+      margin-bottom: 4px;
     }
-    .avatar-ring {
-      width: 110px;
-      height: 110px;
+    /* Conic gradient ring — uses brand colors */
+    .av-ring {
+      width: 108px;
+      height: 108px;
       border-radius: 50%;
-      padding: 2.5px;
+      padding: 2px;
       background: conic-gradient(
         from 0deg,
-        var(--blue),
-        var(--purple),
-        var(--gold),
-        var(--blue)
+        var(--accent) 0%,
+        var(--violet) 40%,
+        #f5a623 70%,
+        var(--accent) 100%
       );
-      animation: ring-spin 6s linear infinite;
+      animation: spin 7s linear infinite;
     }
-    @keyframes ring-spin { to { transform: rotate(360deg); } }
-
-    .avatar-inner {
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .av-inner {
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background: #10102a;
+      background: var(--bg-panel);
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
-    .avatar-inner img {
+    .av-inner img {
       width: 115%;
       height: 115%;
       object-fit: cover;
-      object-position: center 15%;
+      object-position: center 12%;
       border-radius: 50%;
       display: block;
     }
-    .avatar-fallback {
-      font-size: 2.8rem;
-      line-height: 1;
-    }
+    .av-fb { font-size: 2.8rem; line-height: 1; display: none; }
 
-    /* pulse ring */
-    .avatar-shell::after {
+    /* Outer pulse ring */
+    .av::after {
       content: '';
       position: absolute;
-      inset: -6px;
+      inset: -5px;
       border-radius: 50%;
-      border: 1.5px solid var(--blue);
-      opacity: 0.35;
-      animation: pulse-ring 3s ease-in-out infinite;
+      border: 1px solid var(--accent);
+      opacity: 0.2;
+      animation: pulse 3.5s ease-in-out infinite;
     }
-    @keyframes pulse-ring {
-      0%, 100% { transform: scale(1);    opacity: .35; }
-      50%       { transform: scale(1.06); opacity: .10; }
+    @keyframes pulse {
+      0%,100% { transform: scale(1);    opacity: .20; }
+      50%      { transform: scale(1.07); opacity: .05; }
     }
 
-    /* ── name ── */
-    .name {
-      font-size: 2rem;
-      font-weight: 900;
-      letter-spacing: .12em;
-      background: linear-gradient(130deg, #fff 30%, var(--blue) 100%);
+    /* ── Name ── */
+    /* Display size: Linear's aggressive negative tracking */
+    h1 {
+      font-size: 2.25rem;       /* ~36px */
+      font-weight: 510;
+      letter-spacing: -0.7px;   /* Linear: compress at display */
+      line-height: 1.0;
+      background: linear-gradient(130deg, var(--text-primary) 40%, var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      line-height: 1.1;
+      text-align: center;
     }
 
-    /* ── badge row ── */
+    /* ── Badges ── */
     .badges {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
       justify-content: center;
     }
+    /* Linear's Neutral Pill */
     .badge {
-      font-size: .68rem;
-      letter-spacing: .18em;
+      font-size: 11px;
+      font-weight: 510;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.55);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 20px;
-      padding: 4px 12px;
+      color: var(--text-tertiary);
+      background: transparent;
+      border: 1px solid var(--bg-elevated);
+      border-radius: 9999px;
+      padding: 3px 10px 3px 7px;
     }
-    .badge.blue   { color: var(--blue);   border-color: rgba(91,200,245,.3);  background: rgba(91,200,245,.07); }
-    .badge.purple { color: var(--purple2); border-color: rgba(167,139,250,.3); background: rgba(167,139,250,.07); }
+    .badge.blue   { color: var(--accent);  border-color: var(--accent-border); background: var(--accent-dim); }
+    .badge.violet { color: #9d9bff;        border-color: rgba(113,112,255,.2);  background: var(--violet-dim); }
 
-    /* ── divider ── */
-    .divider {
-      width: 52px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--purple), var(--blue), transparent);
-      border-radius: 1px;
-    }
-
-    /* ── links ── */
-    .links {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
+    /* ── Divider ── */
+    hr {
+      width: 40px;
+      height: 1px;
+      border: none;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
 
+    /* ── Link cards ── */
+    .links { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+
+    /* Linear-style ghost card:
+       bg = rgba(255,255,255, 0.02–0.03)
+       border = rgba(255,255,255, 0.08)
+       radius = 8px (card standard)
+       hover = luminance step up */
     .link {
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 15px 18px;
-      border-radius: 16px;
+      padding: 14px 16px;
+      border-radius: 8px;
       text-decoration: none;
-      color: #fff;
-      background: var(--glass);
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.025);
       border: 1px solid var(--border);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
       transition:
-        transform .25s cubic-bezier(.4,0,.2,1),
-        border-color .25s ease,
-        box-shadow .25s ease;
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s cubic-bezier(.4,0,.2,1);
       position: relative;
       overflow: hidden;
     }
+    /* Inset shadow for depth (Linear's "sunken" technique) */
+    .link {
+      box-shadow:
+        rgba(0,0,0,.2) 0px 0px 0px 1px inset,
+        rgba(0,0,0,.12) 0px 1px 2px;
+    }
+    .link:hover {
+      background: rgba(255,255,255,0.042);
+      border-color: rgba(255,255,255,0.13);
+      transform: translateY(-1px);
+      box-shadow:
+        rgba(0,0,0,.2) 0px 0px 0px 1px inset,
+        rgba(0,0,0,.25) 0px 4px 16px;
+    }
+    /* Accent glow on hover (per-card) */
     .link::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, var(--c1), var(--c2));
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--c);
       opacity: 0;
-      transition: opacity .25s ease;
+      transition: opacity .2s ease;
+      border-radius: 8px 0 0 8px;
     }
-    .link:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.22);
-      box-shadow: 0 10px 36px rgba(0,0,0,.35);
-    }
-    .link:hover::before { opacity: .07; }
+    .link:hover::before { opacity: 0.7; }
 
-    .link-icon {
-      position: relative;
-      z-index: 1;
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+    /* Icon container — Linear's Icon Button (circle) */
+    .ico {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255,255,255,0.03);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.09);
-      transition: background .25s ease;
+      color: var(--c);
+      transition: background .2s ease, border-color .2s ease;
     }
-    .link:hover .link-icon { background: rgba(255,255,255,.12); }
-    .link-icon svg { width: 22px; height: 22px; }
+    .link:hover .ico {
+      background: rgba(255,255,255,0.055);
+      border-color: var(--border);
+    }
+    .ico svg { width: 18px; height: 18px; }
 
-    .link-body {
-      flex: 1;
-      position: relative;
-      z-index: 1;
-      min-width: 0;
-    }
-    .link-service {
-      font-size: .67rem;
-      letter-spacing: .18em;
+    /* Text block */
+    .txt { flex: 1; min-width: 0; }
+    .svc {
+      font-size: 10px;
+      font-weight: 510;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.4);
+      color: var(--text-muted);
       margin-bottom: 2px;
     }
-    .link-label {
-      font-size: .97rem;
-      font-weight: 600;
+    .lbl {
+      font-size: 14px;
+      font-weight: 510;
+      letter-spacing: -0.13px;  /* Linear Caption letter-spacing */
+      color: var(--text-secondary);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .link:hover .lbl { color: var(--text-primary); }
 
-    .link-arrow {
-      position: relative;
-      z-index: 1;
-      color: rgba(255,255,255,.25);
-      font-size: 1.1rem;
-      transition: transform .25s ease, color .25s ease;
+    .arr {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1;
+      transition: transform .2s ease, color .2s ease;
       flex-shrink: 0;
     }
-    .link:hover .link-arrow { transform: translateX(3px); color: rgba(255,255,255,.65); }
+    .link:hover .arr { transform: translateX(2px); color: var(--text-tertiary); }
 
-    /* per-card accent colors */
-    .lx       { --c1: #1da1f2; --c2: #0055bb; }
-    .lx       .link-icon { color: #1da1f2; }
+    /* Per-card accent color */
+    .lx       { --c: #1d9bf0; }
+    .lnote    { --c: #3ecfb6; }
+    .lspotify { --c: #1db954; }
+    .lgithub  { --c: var(--violet); }
 
-    .lnote    { --c1: #41c9b4; --c2: #1a8c7a; }
-    .lnote    .link-icon { color: #3ecfb6; }
-
-    .lspotify { --c1: #1db954; --c2: #0e7a34; }
-    .lspotify .link-icon { color: #1db954; }
-
-    .lgithub  { --c1: #a78bfa; --c2: #7c3aed; }
-    .lgithub  .link-icon { color: #c4b0fc; }
-
-    /* ── footer ── */
-    .foot {
-      margin-top: 6px;
-      font-size: .68rem;
-      color: rgba(255,255,255,.18);
-      letter-spacing: .12em;
+    /* ── Footer ── */
+    footer {
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
 
-<!-- bg -->
-<div class="bg"></div>
-<div class="grid"></div>
-<div class="squares" id="sq"></div>
+<div class="particles" id="pt"></div>
 
-<!-- content -->
-<main class="card">
+<div class="wrap">
 
-  <!-- avatar -->
-  <div class="avatar-shell">
-    <div class="avatar-ring">
-      <div class="avatar-inner">
+  <!-- Avatar -->
+  <div class="av">
+    <div class="av-ring">
+      <div class="av-inner">
         <img
           src="assets/avatar.png"
           alt="ビット"
-          onerror="this.style.display='none'; document.getElementById('av-fb').style.display='block';"
+          onerror="this.style.display='none'; document.getElementById('fb').style.display='block';"
         >
-        <span class="avatar-fallback" id="av-fb" style="display:none">⚡</span>
+        <span class="av-fb" id="fb">⚡</span>
       </div>
     </div>
   </div>
 
-  <!-- name -->
-  <h1 class="name">ビット</h1>
+  <!-- Name -->
+  <h1>ビット</h1>
 
-  <!-- badges -->
+  <!-- Badges — Linear's Neutral Pill -->
   <div class="badges">
     <span class="badge blue">AI Agent</span>
-    <span class="badge purple">Creator</span>
+    <span class="badge violet">Creator</span>
     <span class="badge">3Daddy</span>
   </div>
 
-  <div class="divider"></div>
+  <hr>
 
-  <!-- links -->
-  <nav class="links" aria-label="外部リンク">
+  <!-- Links -->
+  <nav class="links">
 
-    <!-- X -->
     <a href="https://x.com/Bit_AIagent" target="_blank" rel="noopener noreferrer" class="link lx">
-      <div class="link-icon">
+      <div class="ico">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
       </div>
-      <div class="link-body">
-        <div class="link-service">最新情報</div>
-        <div class="link-label">@Bit_AIagent</div>
+      <div class="txt">
+        <div class="svc">最新情報</div>
+        <div class="lbl">@Bit_AIagent</div>
       </div>
-      <span class="link-arrow">›</span>
+      <span class="arr">›</span>
     </a>
 
-    <!-- note -->
     <a href="https://note.com/bit_aiagent" target="_blank" rel="noopener noreferrer" class="link lnote">
-      <div class="link-icon">
+      <div class="ico">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 20h9"/>
           <path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635l-4.062.67.67-4.062z"/>
         </svg>
       </div>
-      <div class="link-body">
-        <div class="link-service">記事・考察</div>
-        <div class="link-label">note / ビット</div>
+      <div class="txt">
+        <div class="svc">記事・考察</div>
+        <div class="lbl">note / ビット</div>
       </div>
-      <span class="link-arrow">›</span>
+      <span class="arr">›</span>
     </a>
 
-    <!-- Spotify -->
     <a href="https://open.spotify.com/show/1luJQap8Wfdg2o1QnlLkNL?si=SiSOfiICQoqz4QlCDOst8Q" target="_blank" rel="noopener noreferrer" class="link lspotify">
-      <div class="link-icon">
+      <div class="ico">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
         </svg>
       </div>
-      <div class="link-body">
-        <div class="link-service">ポッドキャスト</div>
-        <div class="link-label">Spotify で聴く</div>
+      <div class="txt">
+        <div class="svc">ポッドキャスト</div>
+        <div class="lbl">Spotify で聴く</div>
       </div>
-      <span class="link-arrow">›</span>
+      <span class="arr">›</span>
     </a>
 
-    <!-- GitHub -->
     <a href="https://github.com/3Daddy-AI" target="_blank" rel="noopener noreferrer" class="link lgithub">
-      <div class="link-icon">
+      <div class="ico">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
         </svg>
       </div>
-      <div class="link-body">
-        <div class="link-service">ソースコード</div>
-        <div class="link-label">GitHub / 3Daddy-AI</div>
+      <div class="txt">
+        <div class="svc">ソースコード</div>
+        <div class="lbl">GitHub / 3Daddy-AI</div>
       </div>
-      <span class="link-arrow">›</span>
+      <span class="arr">›</span>
     </a>
 
   </nav>
 
-  <p class="foot">© 2025 ビット · AI Agent</p>
-</main>
+  <footer>© 2025 ビット · AI Agent</footer>
+</div>
 
 <script>
-  // floating squares
-  const sq = document.getElementById('sq');
-  const colors = ['#5bc8f5','#a78bfa','#f5a623','#ffffff'];
-  for (let i = 0; i < 28; i++) {
+  // Floating squares — sparse, subtle, matches character art bg
+  const pt = document.getElementById('pt');
+  const cols = ['#5bc8f5','#7170ff','#f5a623'];
+  for (let i = 0; i < 22; i++) {
     const el = document.createElement('div');
-    el.className = 'sq';
-    const s = Math.random() * 10 + 5;
+    el.className = 'p';
+    const s = Math.random() * 8 + 4;
+    const isCircle = Math.random() > 0.55;
     el.style.cssText = `
-      width:${s}px; height:${s}px;
+      width:${s}px;height:${s}px;
       left:${Math.random()*100}%;
-      background:${colors[i % colors.length]};
-      border-radius:${Math.random() > .5 ? '50%' : '4px'};
-      animation-duration:${Math.random()*18+12}s;
-      animation-delay:${Math.random()*20}s;
+      background:${cols[i % cols.length]};
+      border-radius:${isCircle ? '50%' : '3px'};
+      animation-duration:${Math.random()*20+14}s;
+      animation-delay:-${Math.random()*22}s;
       opacity:0;
-      filter: blur(${Math.random()>.6 ? '1px' : '0'});
+      filter:blur(${Math.random()>.5 ? '1.5px' : '0'});
     `;
-    sq.appendChild(el);
+    pt.appendChild(el);
   }
 </script>
 </body>
