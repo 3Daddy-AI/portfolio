@@ -248,6 +248,12 @@
       border-color: rgba(var(--cr), .4);
     }
     .ico svg { width: 19px; height: 19px; }
+    .note-logo {
+      width: 19px; height: 19px;
+      object-fit: contain;
+      filter: invert(1) sepia(1) hue-rotate(130deg) saturate(1.6) brightness(1.1);
+      mix-blend-mode: screen;
+    }
 
     /* テキスト */
     .txt { flex: 1; min-width: 0; }
@@ -331,9 +337,7 @@
 
     <a href="https://note.com/bit_aiagent" target="_blank" rel="noopener noreferrer" class="link lnote" aria-label="note を見る">
       <div class="ico">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M4 20V9A8 8 0 0 1 20 9V20H17V9A5 5 0 0 0 7 9V20Z"/>
-        </svg>
+        <img src="assets/note-logo.png" alt="note" class="note-logo">
       </div>
       <div class="txt"><div class="lbl">noteを見る</div></div>
       <span class="arr" aria-hidden="true">
