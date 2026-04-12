@@ -10,7 +10,6 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
   <title>ビット / Bit</title>
-  <!-- ⚡ favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,45 +20,42 @@
     :root {
       --bg-canvas:    #08090a;
       --bg-panel:     #0f1011;
-      --bg-surface:   #191a1b;
-      --bg-elevated:  #23252a;
       --text-primary:   #f7f8f8;
       --text-secondary: #d0d6e0;
-      --text-tertiary:  #8a8f98;
       --text-muted:     #62666d;
-      --accent:        #5bc8f5;
-      --violet:        #7170ff;
-      --gold:          #f5a623;
+      --accent:  #5bc8f5;
+      --violet:  #7170ff;
+      --gold:    #f5a623;
       --border:        rgba(255,255,255,0.08);
       --border-subtle: rgba(255,255,255,0.05);
       --font: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
-      --font-features: "cv01","ss03";
     }
 
     body {
       min-height: 100dvh;
       background: var(--bg-canvas);
       font-family: var(--font);
-      font-feature-settings: var(--font-features);
+      font-feature-settings: "cv01","ss03";
       -webkit-font-smoothing: antialiased;
       color: var(--text-primary);
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 60px 20px 72px;
+      padding: 52px 20px 72px;
       overflow-x: hidden;
     }
 
-    /* ── Background: ビット世界観のグロー ── */
+    /* ── Background ── */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       z-index: 0;
+      /* ビット世界観: 上部中央に強めの紫グロー */
       background:
-        radial-gradient(ellipse 60% 40% at 50% 0%,  rgba(113,80,210,.18) 0%, transparent 65%),
-        radial-gradient(ellipse 45% 40% at 15% 60%, rgba(91,200,245,.07) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 45% at 85% 75%, rgba(113,112,255,.08) 0%, transparent 65%);
+        radial-gradient(ellipse 70% 50% at 50% -5%,  rgba(100,60,220,.22) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 35% at 10% 55%,  rgba(91,200,245,.06) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 40% at 90% 80%,  rgba(113,112,255,.07) 0%, transparent 65%);
       pointer-events: none;
     }
     body::after {
@@ -74,14 +70,8 @@
       pointer-events: none;
     }
 
-    /* ── Particles: 小さく・控えめに ── */
-    .particles {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
+    /* ── Particles ── */
+    .particles { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
     .p { position: absolute; animation: rise linear infinite; opacity: 0; }
     @keyframes rise {
       0%   { transform: translateY(105vh) rotate(0deg);   opacity: 0; }
@@ -90,9 +80,9 @@
       100% { transform: translateY(-60px) rotate(360deg); opacity: 0; }
     }
 
-    /* ── 入場アニメーション ── */
+    /* ── Entrance animations ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -105,51 +95,50 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
     }
 
     /* ── Avatar ── */
     .av {
       position: relative;
-      width: 112px;
-      height: 112px;
-      margin-bottom: 4px;
+      width: 124px;
+      height: 124px;
+      margin-bottom: 2px;
       animation: fadeUp .65s cubic-bezier(.4,0,.2,1) both;
     }
-    /* ビットカラーのグロー（キャラクターとページのつながり） */
+    /* キャラクター世界観のグロー */
     .av::before {
       content: '';
       position: absolute;
-      inset: -18px;
+      inset: -24px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(91,50,180,.35) 0%, transparent 70%);
-      filter: blur(14px);
+      background: radial-gradient(circle, rgba(80,40,200,.4) 0%, transparent 68%);
+      filter: blur(18px);
       z-index: -1;
     }
     /* パルスリング */
     .av::after {
       content: '';
       position: absolute;
-      inset: -6px;
+      inset: -7px;
       border-radius: 50%;
-      border: 1px solid var(--accent);
-      opacity: 0.18;
+      border: 1px solid rgba(91,200,245,.25);
       animation: pulse 3.5s ease-in-out infinite;
     }
     @keyframes pulse {
-      0%,100% { transform: scale(1);    opacity: .18; }
-      50%      { transform: scale(1.08); opacity: .04; }
+      0%,100% { transform: scale(1);    opacity: 1; }
+      50%      { transform: scale(1.08); opacity: .2; }
     }
     .av-ring {
-      width: 112px;
-      height: 112px;
+      width: 124px;
+      height: 124px;
       border-radius: 50%;
       padding: 2.5px;
       background: conic-gradient(
         from 0deg,
-        var(--accent) 0%,
-        var(--violet) 40%,
-        var(--gold)   70%,
+        var(--accent)  0%,
+        var(--violet) 38%,
+        var(--gold)   68%,
         var(--accent) 100%
       );
     }
@@ -157,29 +146,29 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background: #140d2e; /* キャラクター画像の紫円背景に近い色で白縁を隠す */
+      background: #140d2e;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .av-inner img {
-      width: 120%;       /* 20%拡大で画像の白い余白を見切れさせる */
+      width: 120%;
       height: 120%;
       object-fit: cover;
       object-position: center 35%;
       border-radius: 50%;
       display: block;
     }
-    .av-fb { font-size: 2.8rem; line-height: 1; display: none; }
+    .av-fb { font-size: 3rem; line-height: 1; display: none; }
 
     /* ── Name ── */
     h1 {
-      font-size: 2.25rem;
-      font-weight: 510;
-      letter-spacing: -0.7px;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -1px;
       line-height: 1.0;
-      background: linear-gradient(130deg, var(--text-primary) 35%, var(--accent));
+      background: linear-gradient(130deg, #ffffff 30%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -192,7 +181,7 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       animation: fadeUp .65s cubic-bezier(.4,0,.2,1) .22s both;
     }
 
@@ -200,114 +189,105 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 15px 16px;
-      border-radius: 10px;
+      padding: 14px 16px;
+      border-radius: 12px;
       text-decoration: none;
       color: var(--text-primary);
-      background: rgba(255,255,255,0.028);
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
-      box-shadow:
-        rgba(0,0,0,.22) 0px 0px 0px 1px inset,
-        rgba(0,0,0,.12) 0px 1px 3px;
+      box-shadow: rgba(0,0,0,.2) 0px 1px 4px;
       transition:
-        background .22s ease,
-        border-color .22s ease,
-        box-shadow .22s ease,
-        transform .22s cubic-bezier(.4,0,.2,1);
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .2s cubic-bezier(.4,0,.2,1);
       position: relative;
       overflow: hidden;
     }
-    /* 常時うっすら見える左アクセントバー */
+    /* 常時うっすら左アクセントバー */
     .link::before {
       content: '';
       position: absolute;
       top: 0; left: 0;
       width: 3px; height: 100%;
-      background: var(--c);
-      opacity: 0.22;
-      transition: opacity .22s ease, width .22s ease;
-      border-radius: 10px 0 0 10px;
-    }
-    /* ホバー時: バーを強調 + 左からのカラーグロー */
-    .link::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(var(--cr),.07) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity .22s ease;
+      background: linear-gradient(180deg, var(--c), transparent);
+      opacity: .3;
+      transition: opacity .2s, width .2s;
+      border-radius: 12px 0 0 12px;
     }
     .link:hover {
-      background: rgba(255,255,255,0.048);
-      border-color: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.055);
+      border-color: rgba(255,255,255,.14);
       transform: translateY(-2px);
+      /* 外側グロー — 最大の差別化ポイント */
       box-shadow:
-        rgba(0,0,0,.22) 0px 0px 0px 1px inset,
-        rgba(0,0,0,.3) 0px 6px 20px;
+        0 0 0 1px rgba(var(--cr),.25),
+        0 8px 28px rgba(0,0,0,.35),
+        0 0 16px rgba(var(--cr),.08);
     }
-    .link:hover::before { opacity: 1; width: 4px; }
-    .link:hover::after  { opacity: 1; }
+    .link:hover::before  { opacity: 1; width: 4px; }
+    .link:active { transform: scale(.98) translateY(0); }
 
-    /* アイコン */
+    /* アイコンボックス — サービスカラーで着色 */
     .ico {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(255,255,255,0.04);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      /* 各カードのカラーでうっすら染まる */
+      background: rgba(var(--cr), .15);
+      border: 1px solid rgba(var(--cr), .25);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       color: var(--c);
-      transition: background .22s ease, border-color .22s ease;
-      position: relative;
-      z-index: 1;
+      transition: background .2s, border-color .2s;
     }
-    .link:hover .ico { background: rgba(255,255,255,0.07); border-color: var(--border); }
-    .ico svg { width: 17px; height: 17px; }
+    .link:hover .ico {
+      background: rgba(var(--cr), .25);
+      border-color: rgba(var(--cr), .4);
+    }
+    .ico svg { width: 19px; height: 19px; }
 
     /* テキスト */
-    .txt { flex: 1; min-width: 0; position: relative; z-index: 1; }
+    .txt { flex: 1; min-width: 0; }
     .lbl {
-      font-size: 15px;
-      font-weight: 510;
-      letter-spacing: -0.15px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
       color: var(--text-secondary);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      transition: color .22s ease;
+      transition: color .2s;
     }
     .link:hover .lbl { color: var(--text-primary); }
 
-    /* 矢印 (SVG chevron) */
+    /* 矢印 */
     .arr {
-      color: var(--text-muted);
+      color: rgba(255,255,255,.2);
       display: flex;
       align-items: center;
       flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-      transition: transform .22s ease, color .22s ease;
+      transition: transform .2s, color .2s;
     }
     .arr svg { width: 14px; height: 14px; }
-    .link:hover .arr { transform: translateX(3px); color: var(--text-tertiary); }
+    .link:hover .arr { transform: translateX(3px); color: rgba(255,255,255,.5); }
 
-    /* per-card accent — color と RGB値を両方定義（::after グロー用） */
-    .lx       { --c: #1d9bf0; --cr: 29,155,240; }
-    .lnote    { --c: #41c9b4; --cr: 65,201,180; }
-    .lspotify { --c: #1db954; --cr: 29,185,84;  }
-    .lgithub  { --c: #9d9bff; --cr: 157,155,255;}
+    /* per-card colors (color value + RGB for rgba()) */
+    .lx       { --c: #1d9bf0; --cr: 29,155,240;  }
+    .lnote    { --c: #41c9b4; --cr: 65,201,180;  }
+    .lspotify { --c: #1db954; --cr: 29,185,84;   }
+    .lgithub  { --c: #a78bfa; --cr: 167,139,250; }
 
     /* ── Footer ── */
     footer {
-      margin-top: 4px;
+      margin-top: 2px;
       font-size: 11px;
       font-weight: 400;
-      letter-spacing: 0.04em;
+      letter-spacing: .05em;
       color: var(--text-muted);
-      animation: fadeUp .4s ease .45s both;
+      animation: fadeUp .4s ease .42s both;
     }
   </style>
 </head>
@@ -335,66 +315,53 @@
   <h1>ビット</h1>
 
   <!-- Links -->
-  <nav class="links">
+  <nav class="links" aria-label="リンク集">
 
-    <!-- X -->
-    <a href="https://x.com/Bit_AIagent" target="_blank" rel="noopener noreferrer" class="link lx">
+    <a href="https://x.com/Bit_AIagent" target="_blank" rel="noopener noreferrer" class="link lx" aria-label="X (Twitter) を見る">
       <div class="ico">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
       </div>
       <div class="txt"><div class="lbl">Xを見る</div></div>
-      <span class="arr">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 3l5 5-5 5"/>
-        </svg>
+      <span class="arr" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
       </span>
     </a>
 
-    <!-- note -->
-    <a href="https://note.com/bit_aiagent" target="_blank" rel="noopener noreferrer" class="link lnote">
+    <a href="https://note.com/bit_aiagent" target="_blank" rel="noopener noreferrer" class="link lnote" aria-label="note を見る">
       <div class="ico">
-        <!-- note.com ロゴ: 小文字 n の字形 -->
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M6 18V8a1.5 1.5 0 0 1 3 0v4a4.5 4.5 0 0 1 9 0v6a1.5 1.5 0 0 1-3 0v-6a1.5 1.5 0 0 0-3 0v6a1.5 1.5 0 0 1-3 0z"/>
         </svg>
       </div>
       <div class="txt"><div class="lbl">noteを見る</div></div>
-      <span class="arr">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 3l5 5-5 5"/>
-        </svg>
+      <span class="arr" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
       </span>
     </a>
 
-    <!-- Spotify -->
-    <a href="https://open.spotify.com/show/1luJQap8Wfdg2o1QnlLkNL?si=SiSOfiICQoqz4QlCDOst8Q" target="_blank" rel="noopener noreferrer" class="link lspotify">
+    <a href="https://open.spotify.com/show/1luJQap8Wfdg2o1QnlLkNL?si=SiSOfiICQoqz4QlCDOst8Q" target="_blank" rel="noopener noreferrer" class="link lspotify" aria-label="Spotify でポッドキャストを聴く">
       <div class="ico">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
         </svg>
       </div>
       <div class="txt"><div class="lbl">Spotifyを聴く</div></div>
-      <span class="arr">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 3l5 5-5 5"/>
-        </svg>
+      <span class="arr" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
       </span>
     </a>
 
-    <!-- GitHub -->
-    <a href="https://github.com/3Daddy-AI" target="_blank" rel="noopener noreferrer" class="link lgithub">
+    <a href="https://github.com/3Daddy-AI" target="_blank" rel="noopener noreferrer" class="link lgithub" aria-label="GitHub を見る">
       <div class="ico">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
         </svg>
       </div>
       <div class="txt"><div class="lbl">GitHubを見る</div></div>
-      <span class="arr">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 3l5 5-5 5"/>
-        </svg>
+      <span class="arr" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
       </span>
     </a>
 
@@ -404,13 +371,12 @@
 </div>
 
 <script>
-  // Particles — small, sparse, ビット brand colors
   const pt = document.getElementById('pt');
   const cols = ['#5bc8f5','#7170ff','#f5a623'];
   for (let i = 0; i < 16; i++) {
     const el = document.createElement('div');
     el.className = 'p';
-    const s = Math.random() * 5 + 2; // max 7px (以前の12pxから縮小)
+    const s = Math.random() * 4 + 2;
     el.style.cssText = `
       width:${s}px;height:${s}px;
       left:${Math.random()*100}%;
